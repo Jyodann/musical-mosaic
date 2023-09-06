@@ -9,6 +9,7 @@
 		"test": "vitest"
 	},
 	"dependencies": {
+		"itty-cors": "^0.3.6",
 		"itty-router": "^2.6.6"
 	},
 	"devDependencies": {
