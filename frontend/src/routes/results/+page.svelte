@@ -1,6 +1,5 @@
 <script>
     import { onMount } from 'svelte';
-
     let songs = []
     onMount(async () => {
         const access_token = window.sessionStorage.getItem("access_token") ?? ""
