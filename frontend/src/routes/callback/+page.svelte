@@ -17,7 +17,7 @@
         if (!is_error) 
         {
             window.sessionStorage.setItem("access_token", token["access_token"])
-            
+            window.location.replace('/results')
         }
     })
 </script>
