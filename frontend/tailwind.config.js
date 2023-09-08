@@ -2,7 +2,13 @@
 export default {
   content: ['./src/**/*.{html,js,svelte,ts}'],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'noto-sans': ['"Noto Sans"', 'sans-serif'],
+        'ubuntu' : ['Ubuntu', 'sans-serif'],
+        'bebas' : ['Bebas Neue', 'sans-serif']
+      },
+    },
   },
   plugins: [],
 }
