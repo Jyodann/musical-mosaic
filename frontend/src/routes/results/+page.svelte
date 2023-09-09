@@ -95,7 +95,7 @@
 
          <div class="h-6 bg-purple-400 flex justify-between items-center px-2">
             <img class="h-full py-1" src='Spotify_Logo_RGB_Black.png'>
-            <p class="font-bebas tracking-normal text-sm">{window.location.host}</p>
+            <p class="font-bebas tracking-wider text-sm">{window.location.host}</p>
          </div>
     </div>
 
