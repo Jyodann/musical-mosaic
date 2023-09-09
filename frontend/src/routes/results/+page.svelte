@@ -41,7 +41,10 @@
             useCORS: true,
             scrollX: 0,
             scrollY: 0,
-            scale: 4
+            scale: 4,
+            removeContainer: true,
+            windowHeight: 320,
+            windowWidth: 368
         }).then(
             function(canvas) {
                 const uri = canvas.toDataURL("image/jpeg")
