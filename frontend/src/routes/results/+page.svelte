@@ -81,7 +81,7 @@
             <p class="text-lg font-bebas">{username}'s Musical Mosaic</p>
          </div>
         
-        <div class="grid grid-cols-5 p-1">
+        <div class="grid grid-cols-5">
             {#each songs as song, idx}
                  {#if idx === 6}
                  <img class="row-span-3 col-span-3 object-fill" src={songs[idx].album.images[0].url} alt='Album Art for {songs[idx].name}'>
@@ -95,7 +95,7 @@
 
          <div class="h-6 bg-purple-400 flex justify-between items-center px-2">
             <img class="h-full py-1" src='Spotify_Logo_RGB_Black.png'>
-            <p class="text-xs font-bebas">{window.location.host}</p>
+            <p class="font-bebas">{window.location.host}</p>
          </div>
     </div>
 
