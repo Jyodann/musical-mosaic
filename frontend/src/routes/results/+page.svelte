@@ -76,9 +76,9 @@
 </svelte:head>
 {#if username !== ''}
 <div class="flex flex-col justify-center place-items-center" >
-    <div class="w-80 text-center bg-purple-300 font-sans" id="mosaic">
-        <div class="h-6 bg-purple-400 flex justify-center items-center px-2">
-            <p class="text-lg font-bebas">{username}'s Musical Mosaic</p>
+    <div class="w-80 text-center bg-purple-100 font-sans" id="mosaic">
+        <div class="h-6 bg-purple-200 flex justify-center items-center px-2">
+            <p class="text-lg font-bebas tracking-normal">{username}'s Musical Mosaic</p>
          </div>
         
         <div class="grid grid-cols-5">
@@ -95,7 +95,7 @@
 
          <div class="h-6 bg-purple-400 flex justify-between items-center px-2">
             <img class="h-full py-1" src='Spotify_Logo_RGB_Black.png'>
-            <p class="font-bebas">{window.location.host}</p>
+            <p class="font-bebas tracking-normal text-sm">{window.location.host}</p>
          </div>
     </div>
 
