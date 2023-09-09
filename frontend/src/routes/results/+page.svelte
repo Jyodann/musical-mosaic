@@ -41,7 +41,7 @@
             useCORS: true,
             scrollX: 0,
             scrollY: 0,
-            scale: 1,
+            scale: 4,
             removeContainer: true,
             windowHeight: 320,
             windowWidth: 368
