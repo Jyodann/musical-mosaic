@@ -5,7 +5,7 @@ export function get_link(base_url) {
     const REDIRECT_URL = base_url + '/callback'
 
     console.log(REDIRECT_URL)
-    const SCOPES = "user-top-read user-read-email user-read-private"
+    const SCOPES = "user-top-read"
 
     const finalUrl = new URL(
         "https://accounts.spotify.com/authorize"
