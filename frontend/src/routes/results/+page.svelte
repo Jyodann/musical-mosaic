@@ -1,10 +1,26 @@
 <script>
     import { onMount } from 'svelte';
     import html2canvas from 'html2canvas';
+    import { stored_token } from '../../stores';
+    import { goto } from '$app/navigation';
+    import { get_link } from '$lib';
     let songs = []
     let username = ""
     onMount(async () => {
-        const access_token = window.sessionStorage.getItem("access_token") ?? ""
+        
+        let access_token;
+
+        stored_token.subscribe(
+            (value) => {
+                access_token = value;
+            }
+        )
+
+        if (access_token === '') {
+            const link = get_link(window.location.origin)
+            goto(link)
+        }
+
         const res = await fetch('https://api.spotify.com/v1/me/top/tracks?limit=17', {
             headers: {
                 "Authorization" : "Bearer " + access_token

@@ -1,23 +1,25 @@
 <script>
     import { onMount } from 'svelte';
+    import { stored_token } from '../../stores';
+    import { goto } from '$app/navigation';
     let is_error = false
-    let token = {}
+    let token_json = {}
     onMount( async () => {
         const urlParams = new URLSearchParams(window.location.search);
         
-        const access_token = urlParams.get('code')
+        const redirect_token = urlParams.get('code')
         const REDIRECT_URL = window.location.href.split('?')[0]
         
-        const res = await fetch(`https://musical-mosaic-backend.jyodann.workers.dev/get_access_token?code=${access_token}&redirect_url=${REDIRECT_URL}`)
+        const res = await fetch(`https://musical-mosaic-backend.jyodann.workers.dev/get_access_token?code=${redirect_token}&redirect_url=${REDIRECT_URL}`)
         
-        token = await res.json()
+        token_json = await res.json()
 
-        is_error = token.hasOwnProperty('error')
+        is_error = token_json.hasOwnProperty('error')
 
         if (!is_error) 
         {
-            window.sessionStorage.setItem("access_token", token["access_token"])
-            window.location.replace('/results')
+            stored_token.set(token_json['access_token'])
+            goto('/results')
         }
     })
 </script>
