@@ -5,6 +5,7 @@
     import { goto } from '$app/navigation';
     import { get_link } from '$lib';
     let songs = []
+    let orignal_song_list = []
     let username = ""
     onMount(async () => {
         
@@ -34,20 +35,22 @@
         })
 
         const res_json = await res.json()
-        console.log(res_json)
+        
         const user_res_json = await user_res.json()
-        songs = res_json["items"]
+        
+        orignal_song_list = res_json["items"]
+        
+        songs = structuredClone(orignal_song_list)
 
         const top_song = songs.shift()
+        
         songs.splice(6, 0, top_song)
 
         username = user_res_json["display_name"]
-        console.log(username)
     })
 
     function return_url(song_json) {
-        console.log(song_json)
-
+        
         return song_json.album.images[0].url
     }
 
@@ -92,6 +95,8 @@
 </svelte:head>
 {#if username !== ''}
 <div class="flex flex-col justify-center place-items-center" >
+    <p class="font-bebas text-2xl">Your favourites, all in one photo:</p>
+
     <div class="w-80 text-center bg-purple-100 font-sans" id="mosaic">
         <div class="h-6 bg-purple-200 flex justify-center items-center px-2">
             <p class="text-lg font-bebas tracking-normal">{username}'s Musical Mosaic</p>
@@ -99,24 +104,44 @@
         
         <div class="grid grid-cols-5">
             {#each songs as song, idx}
-                 {#if idx === 6}
-                 <img class="row-span-3 col-span-3 object-fill" src={songs[idx].album.images[0].url} alt='Album Art for {songs[idx].name}'>
+
+                {#if idx === 6}
+                    <img class="row-span-3 col-span-3 object-fill" src={return_url(song)} alt='Album Art for {song.name}'>
          
                  {:else}
-                 <img  src={songs[idx].album.images[0].url} alt='Album Art for {songs[idx].name}'>
+                 <img  src={return_url(song)} alt='Album Art for {song.name}'>
                  {/if}
                  
+            
+
             {/each}
          </div>
-
+         
          <div class="h-6 bg-purple-400 flex justify-between items-center px-2">
-            <img class="h-full py-1" src='Spotify_Logo_RGB_Black.png'>
+            <img class="h-full py-1" src='Spotify_Logo_RGB_Black.png' alt="Spotify Logo">
             <p class="font-bebas tracking-wider text-sm">{window.location.host}</p>
          </div>
     </div>
+    
+    <button class="rounded bg-slate-200 p-4 m-2 w-80" on:click={render_image}>Download Image</button>
 
-    <button class="rounded bg-slate-200 p-4 m-2" on:click={render_image}>Download Image</button>
+    <div class="w-80 font-bebas">
+        
+        <ol class="list-decimal px-4">
+            {#each orignal_song_list as song}
+            <li>
+                {song.name} by {song.artists.map((x) => x.name).join(', ')} 
+            </li>
+            {/each}
+        </ol>
+      
+   
+    </div>
+    
+    <p class="font-bebas">Musical Mosaic uses data provided by: <a class="underline" href="https://spotify.com/">Spotify</a></p>
 </div>
+
+
 
 
 {/if}
