@@ -1,3 +1,5 @@
+
+
 <script>
     import { onMount } from 'svelte';
     import html2canvas from 'html2canvas';
@@ -89,9 +91,10 @@
 </script>
 
 <svelte:head>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Ubuntu&display=swap');
-    </style>
+    <title>
+        Music Mosaic Results
+    </title>
+    
 </svelte:head>
 {#if username !== ''}
 <div class="flex flex-col justify-center place-items-center" >
@@ -138,7 +141,7 @@
    
     </div>
     
-    <p class="font-bebas">Musical Mosaic uses data provided by: <a class="underline" href="https://spotify.com/">Spotify</a></p>
+    
 </div>
 
 
