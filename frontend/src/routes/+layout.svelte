@@ -1,7 +1,7 @@
 <script>
   import "../app.css";
 
-  let hide_nav = false
+  let hide_nav = true
 </script>
 
 
