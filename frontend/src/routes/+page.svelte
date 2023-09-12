@@ -9,11 +9,10 @@
 </svelte:head>
 
 
-<div class="flex flex-col place-items-center">
-    
-    <p class="font-bebas text-4xl pt-6">Musical Mosaic: Your Favorites, all in one photo.</p>
-    <p>Musical Mosaic creates a collage of all your favourite Spotify tracks!</p>
-    <img class="h-[32rem] object-scale-down py-2" src="jordan_mosaic.jpg" alt="Jordan's Musical Mosaic" >
+<div class="flex font-bebas flex-col items-center px-2">
+    <p class="text-3xl text-center font-bold w-full">Musical Mosaic: Your Favorites. One Photo.</p>
+
+    <img class="w-96 object-scale-down py-2" src="jordan_mosaic.jpg" alt="Jordan's Musical Mosaic" >
 
     <p class="font-bebas text-2xl">Create yours here!</p>
     <button on:click={() => { 
