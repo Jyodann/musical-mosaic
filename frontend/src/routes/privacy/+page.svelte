@@ -4,7 +4,7 @@
 
 <div class="flex flex-col gap-2 px-2 items-center">
     <p class="font-bebas text-4xl pt-6 text-center">Musical Mosaic Privacy Policy</p>
-    <div class="md:w-[32rem] text-justify flex flex-col gap-4">
+    <div class="md:w-[40rem] text-justify flex flex-col gap-4">
         <p>Musical Mosaic is developed as an <a href="https://github.com/Jyodann/musical-mosaic" class="underline">open source service</a> which uses the <a class="underline" href="https://developer.spotify.com/documentation/web-api">Web APIs provided by Spotify</a>.</p>
     
         <p>By using this service, you consent to the use of your Spotify username, and playback data of your top tracks to generate the images.
@@ -26,7 +26,4 @@
         </p>
         <p class="text-center">Thank you for reading!</p>
     </div>
-   
- 
-    
 </div>

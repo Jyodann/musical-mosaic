@@ -1,7 +1,7 @@
 <script>
   import "../app.css";
 
-  let hide_nav = false
+  let hide_nav = true
 </script>
 
 
@@ -28,15 +28,15 @@
   </div>
 
   <div class="w-full block {hide_nav ? 'hidden' : ''} md:inline-block md:w-auto md:gap-2 items-center">
-    <a href="/" class="block md:inline-block md:px-2 py-2"> 
+    <a href="/" class="block md:inline-block md:px-2 pt-2"> 
       Home
     </a>
 
-    <a href="/about" class="block md:inline-block md:px-2 py-2"> 
+    <a href="/about" class="block md:inline-block md:px-2 pt-2"> 
       About
     </a>
 
-    <a href="/privacy" class="block md:inline-block md:px-2 py-2" > 
+    <a href="/privacy" class="block md:inline-block md:px-2 pt-2" > 
       Privacy Policy
     </a>
   </div>
@@ -45,5 +45,5 @@
 <slot class="container mx-auto"/>
 
 <footer class="flex justify-center font-bebas bg-slate-200 my-4">
-  <p>Made with ❤ by  <a href="https://github.com/Jyodann/">Jyodann</a></p>
+  <p>Made with ❤ by  <a href="https://github.com/Jyodann/" class="underline">Jyodann</a></p>
 </footer>
