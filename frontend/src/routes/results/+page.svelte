@@ -9,9 +9,34 @@
     let songs = []
     let orignal_song_list = []
     let username = ""
+    let access_token;
+    let CURRENT_TERM = ""
+    const SHORT_TERM = "short_term"
+    const MEDIUM_TERM = "medium_term"
+    const ALL_TIME = "long_term"
+
+    async function change_term(term_to_change ,access_token, orignal_song_list, songs_display) {
+        
+        const res = await fetch(`https://api.spotify.com/v1/me/top/tracks?limit=17&time_range=${term_to_change}`, {
+            headers: {
+                "Authorization" : "Bearer " + access_token
+            }
+        })
+
+        const res_json = await res.json()
+
+        orignal_song_list = structuredClone(res_json["items"])
+        
+        songs = structuredClone(orignal_song_list)
+
+        const top_song = songs.shift()
+        
+        songs.splice(6, 0, top_song)
+    }
+
     onMount(async () => {
         
-        let access_token;
+        
 
         stored_token.subscribe(
             (value) => {
@@ -24,11 +49,7 @@
             goto(link)
         }
 
-        const res = await fetch('https://api.spotify.com/v1/me/top/tracks?limit=17', {
-            headers: {
-                "Authorization" : "Bearer " + access_token
-            }
-        })
+        
 
         const user_res = await fetch('https://api.spotify.com/v1/me', {
             headers: {
@@ -36,23 +57,15 @@
             }
         })
 
-        const res_json = await res.json()
-        
+       
         const user_res_json = await user_res.json()
-        
-        orignal_song_list = res_json["items"]
-        
-        songs = structuredClone(orignal_song_list)
+         username = user_res_json["display_name"]
 
-        const top_song = songs.shift()
-        
-        songs.splice(6, 0, top_song)
-
-        username = user_res_json["display_name"]
+        CURRENT_TERM = MEDIUM_TERM
+        change_term(CURRENT_TERM, access_token, orignal_song_list, songs)
     })
 
     function return_url(song_json) {
-        
         return song_json.album.images[0].url
     }
 
@@ -99,9 +112,12 @@
 {#if username !== ''}
 <div class="flex flex-col place-items-center" >
     <div class="flex flex-col md:w-[40rem] place-items-center">
-        <p class="font-bebas text-4xl pt-2">Your favourites, all in one photo:</p>
-        <div class="w-80">
-            
+        <p class="font-bebas text-4xl pt-2">Your Mosaic</p>
+        <p class="font-bebas text-xl"> Change time period:</p>
+        <div class="w-80 font-bebas flex justify-evenly py-2">
+           <button class="px-4 w-24 text-center {CURRENT_TERM === SHORT_TERM ? 'bg-blue-300' : ''} w-24 text-center" on:click={() => {change_term(SHORT_TERM, access_token, orignal_song_list, songs); CURRENT_TERM = SHORT_TERM }}>4 Weeks</button>
+           <button class="px-4  w-24 text-center {CURRENT_TERM === MEDIUM_TERM ? 'bg-blue-300' : ''}" on:click={() => {change_term(MEDIUM_TERM, access_token, orignal_song_list, songs); CURRENT_TERM = MEDIUM_TERM}}>6 Months</button>
+           <button class="px-4 w-24  text-center {CURRENT_TERM === ALL_TIME ? 'bg-blue-300' : ''}" on:click={() => {change_term(ALL_TIME, access_token, orignal_song_list, songs); CURRENT_TERM = ALL_TIME}}>All Time</button>
         </div>
         <div class="w-80 bg-purple-100 font-sans" id="mosaic">
             <div class="h-6 bg-purple-200 flex justify-center items-center px-2">
@@ -134,7 +150,7 @@
         <div class="w-80 font-bebas h-40 overflow-auto">
             
             
-                {#each orignal_song_list as song}
+                {#each songs as song}
                 <div class="p-2 overflow-auto">
                     <div class="text-center bg-purple-300 p-2 rounded-lg">
                         {song.name} by {song.artists.map((x) => x.name).join(', ')} 
