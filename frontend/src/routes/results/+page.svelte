@@ -68,39 +68,6 @@
     function return_url(song_json) {
         return song_json.album.images[0].url
     }
-
-    function render_image() {
-        const mosaic = document.getElementById('mosaic')
-        html2canvas(mosaic, {
-            useCORS: true,
-            scrollX: 0,
-            scrollY: 0,
-            scale: 6,
-            removeContainer: true,
-            windowHeight: 320,
-            windowWidth: 368
-        }).then(
-            function(canvas) {
-                const uri = canvas.toDataURL("image/jpeg")
-
-                const link = document.createElement('a')
-
-                if (typeof link.download === 'string') {
-                    link.href = uri;
-                    link.download = 'Mosaic.jpeg'
-
-                    //Firefox requires the link to be in the body
-                    document.body.appendChild(link);
-
-                    link.click()
-
-                    document.body.removeChild(link);
-                } else {
-                    window.open(uri)
-                }
-            }
-        )
-    }
 </script>
 
 <svelte:head>
@@ -141,9 +108,6 @@
                 <img class="h-full py-1" src='Spotify_Logo_RGB_Black.png' alt="Spotify Logo">
                 <p class="font-bebas tracking-wider text-sm">{window.location.host}</p>
              </div>
-        </div>
-        <div class="w-80 flex justify-between py-2">
-            <button class="rounded bg-slate-200 p-4 w-full" on:click={render_image}>Download Image</button>
         </div>
         
         <p class="font-bebas text-center text-2xl">Featured Tracks</p>
