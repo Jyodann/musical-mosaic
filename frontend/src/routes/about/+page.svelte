@@ -2,7 +2,7 @@
     <p class="font-bebas text-4xl pt-2 text-center">About</p>
     <p class="font-bold text-xl">Inspiration</p>
     <div class="md:w-[40rem] text-justify flex flex-col gap-4">
-        <p>Musical Mosaic was inspired by <a href="https://receiptify.herokuapp.com/index.html" class="underline">Receiptify</a>, Musical Mosaic is a service that creates a photo with albums that you listen to often</p>
+        <p>Musical Mosaic was inspired by <a href="https://receiptify.herokuapp.com/index.html" class="underline">Receiptify</a>. Do check it out!</p>
     </div>   
     <p class="font-bold text-xl">Contact</p>
     <div class="md:w-[40rem] text-justify flex flex-col gap-4">
@@ -17,7 +17,7 @@
         
     </div> 
     <a href='https://ko-fi.com/C0C633B3B' target='_blank' class="p-2">
-        <img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi3.png?v=3' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+    <img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi3.png?v=3'  alt='Buy Me a Coffee at ko-fi.com' /></a>
 
    
 </div>
