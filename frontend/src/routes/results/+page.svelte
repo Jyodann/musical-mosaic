@@ -1,6 +1,5 @@
 <script>
     import { onMount } from "svelte";
-    import html2canvas from "html2canvas";
     import { stored_token } from "../../stores";
     import { goto } from "$app/navigation";
     import { get_link } from "$lib";
@@ -8,7 +7,9 @@
     let orignal_song_list = [];
     let username = "";
     let access_token;
+    let number_of_songs = 0;
     let CURRENT_TERM = "";
+
     const SHORT_TERM = "short_term";
     const MEDIUM_TERM = "medium_term";
     const ALL_TIME = "long_term";
@@ -29,6 +30,8 @@
         );
 
         const res_json = await res.json();
+
+        number_of_songs = res_json.total;
 
         orignal_song_list = structuredClone(res_json["items"]);
 
@@ -119,58 +122,82 @@
                     }}>All Time</button
                 >
             </div>
-            <div class="w-80 bg-purple-100 font-sans" id="mosaic">
-                <div
-                    class="h-6 bg-purple-200 flex justify-center items-center px-2"
-                >
-                    <p class="text-lg font-bebas tracking-normal">
-                        {username}'s Musical Mosaic
+
+            {#if number_of_songs < 17}
+                <div class="text-center font-bebas">
+                    <p class="text-2xl">
+                        Sorry, not enough songs to produce a Mosaic! Try to
+                        change the time period, or come back after a few days of
+                        using Spotify!
                     </p>
+                    <br />
+                    <p class="text-lg">
+                        As a token of apology, here's a photo of Eevee wearing
+                        Pom Pom hairbands. I hope you like it
+                    </p>
+
+                    <img
+                        class="w-96"
+                        alt="The Eevee character from the Pokemon Franchise wearing a hairband that features the character Pom Pom from the Franchise Honkai Star Rail"
+                        src="./eevee_pompom.jpg"
+                    />
+                </div>
+            {:else}
+                <div class="w-80 bg-purple-100 font-sans" id="mosaic">
+                    <div
+                        class="h-6 bg-purple-200 flex justify-center items-center px-2"
+                    >
+                        <p class="text-lg font-bebas tracking-normal">
+                            {username}'s Musical Mosaic
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-5">
+                        {#each songs as song, idx}
+                            {#if idx === 6}
+                                <img
+                                    class="row-span-3 col-span-3 object-fill"
+                                    src={return_url(song)}
+                                    alt="Album Art for {song.name}"
+                                />
+                            {:else}
+                                <img
+                                    src={return_url(song)}
+                                    alt="Album Art for {song.name}"
+                                />
+                            {/if}
+                        {/each}
+                    </div>
+
+                    <div
+                        class="h-6 bg-purple-400 flex justify-between items-center px-2"
+                    >
+                        <img
+                            class="h-full py-1"
+                            src="Spotify_Logo_RGB_Black.png"
+                            alt="Spotify Logo"
+                        />
+                        <p class="font-bebas tracking-wider text-sm">
+                            {window.location.host}
+                        </p>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-5">
-                    {#each songs as song, idx}
-                        {#if idx === 6}
-                            <img
-                                class="row-span-3 col-span-3 object-fill"
-                                src={return_url(song)}
-                                alt="Album Art for {song.name}"
-                            />
-                        {:else}
-                            <img
-                                src={return_url(song)}
-                                alt="Album Art for {song.name}"
-                            />
-                        {/if}
+                <p class="font-bebas text-center text-2xl">Featured Tracks</p>
+                <div class="w-80 font-bebas h-40 overflow-auto">
+                    {#each songs as song}
+                        <div class="p-2 overflow-auto">
+                            <div
+                                class="text-center bg-purple-300 p-2 rounded-lg"
+                            >
+                                {song.name} by {song.artists
+                                    .map((x) => x.name)
+                                    .join(", ")}
+                            </div>
+                        </div>
                     {/each}
                 </div>
-
-                <div
-                    class="h-6 bg-purple-400 flex justify-between items-center px-2"
-                >
-                    <img
-                        class="h-full py-1"
-                        src="Spotify_Logo_RGB_Black.png"
-                        alt="Spotify Logo"
-                    />
-                    <p class="font-bebas tracking-wider text-sm">
-                        {window.location.host}
-                    </p>
-                </div>
-            </div>
-
-            <p class="font-bebas text-center text-2xl">Featured Tracks</p>
-            <div class="w-80 font-bebas h-40 overflow-auto">
-                {#each songs as song}
-                    <div class="p-2 overflow-auto">
-                        <div class="text-center bg-purple-300 p-2 rounded-lg">
-                            {song.name} by {song.artists
-                                .map((x) => x.name)
-                                .join(", ")}
-                        </div>
-                    </div>
-                {/each}
-            </div>
+            {/if}
         </div>
     </div>
 {/if}
