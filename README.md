@@ -4,7 +4,8 @@
 ## Introduction
 A web application that produces a photo collage of all your favourite songs on Spotify, inspired by [Reciptify](https://receiptify.herokuapp.com/)
 
-![photo_2023-11-16_10-01-19 (Phone)](https://github.com/Jyodann/musical-mosaic/assets/48559311/8c0b58c0-0d26-4487-829e-dac95fa95994)
+![photo_2023-11-16_10-01-19 (Phone)](https://github.com/Jyodann/musical-mosaic/assets/48559311/9b3e8950-3444-4904-af6f-60e6ec87df70)
+
 
 [Click here to try it!](https://musical-mosaic.pages.dev/) 
 
