@@ -3,6 +3,9 @@
     import { stored_token } from "../../stores";
     import { goto } from "$app/navigation";
     import { get_link } from "$lib";
+    import PompomError from "./pompom_error.svelte";
+    import CurrentTermButton from "./current_term_button.svelte";
+
     let songs = [];
     let orignal_song_list = [];
     let username = "";
@@ -17,8 +20,7 @@
     async function change_term(
         term_to_change,
         access_token,
-        orignal_song_list,
-        songs_display
+        orignal_song_list
     ) {
         const res = await fetch(
             `https://api.spotify.com/v1/me/top/tracks?limit=17&time_range=${term_to_change}`,
@@ -40,6 +42,8 @@
         const top_song = songs.shift();
 
         songs.splice(6, 0, top_song);
+
+        CURRENT_TERM = term_to_change;
     }
 
     onMount(async () => {
@@ -62,7 +66,7 @@
         username = user_res_json["display_name"];
 
         CURRENT_TERM = MEDIUM_TERM;
-        change_term(CURRENT_TERM, access_token, orignal_song_list, songs);
+        change_term(CURRENT_TERM, access_token, orignal_song_list);
     });
 
     function return_url(song_json) {
@@ -79,70 +83,42 @@
             <p class="font-bebas text-4xl pt-2">Your Mosaic</p>
             <p class="font-bebas text-xl">Change time period:</p>
             <div class="w-80 font-bebas flex justify-evenly py-2">
-                <button
-                    class="px-4 w-24 text-center {CURRENT_TERM === SHORT_TERM
-                        ? 'bg-blue-300'
-                        : ''} w-24 text-center"
-                    on:click={() => {
-                        change_term(
-                            SHORT_TERM,
-                            access_token,
-                            orignal_song_list,
-                            songs
-                        );
-                        CURRENT_TERM = SHORT_TERM;
-                    }}>4 Weeks</button
-                >
-                <button
-                    class="px-4 w-24 text-center {CURRENT_TERM === MEDIUM_TERM
-                        ? 'bg-blue-300'
-                        : ''}"
-                    on:click={() => {
-                        change_term(
-                            MEDIUM_TERM,
-                            access_token,
-                            orignal_song_list,
-                            songs
-                        );
-                        CURRENT_TERM = MEDIUM_TERM;
-                    }}>6 Months</button
-                >
-                <button
-                    class="px-4 w-24 text-center {CURRENT_TERM === ALL_TIME
-                        ? 'bg-blue-300'
-                        : ''}"
-                    on:click={() => {
-                        change_term(
-                            ALL_TIME,
-                            access_token,
-                            orignal_song_list,
-                            songs
-                        );
-                        CURRENT_TERM = ALL_TIME;
-                    }}>All Time</button
-                >
+                <CurrentTermButton
+                    component_term={SHORT_TERM}
+                    current_term={CURRENT_TERM}
+                    title="4 Weeks"
+                    on:click={() => change_term(
+                        SHORT_TERM,
+                        access_token,
+                        orignal_song_list
+                    )}
+                />
+                <CurrentTermButton
+                    component_term={MEDIUM_TERM}
+                    current_term={CURRENT_TERM}
+                    title="6 Months"
+                    on:click={() => change_term(
+                        MEDIUM_TERM,
+                        access_token,
+                        orignal_song_list
+                    )}
+                />
+                <CurrentTermButton
+                    component_term={ALL_TIME}
+                    current_term={CURRENT_TERM}
+                    title="All Time"
+                    on:click={() => change_term(
+                        ALL_TIME,
+                        access_token,
+                        orignal_song_list
+                    )}
+                />
+                
+
+
             </div>
 
-            {#if number_of_songs < 17}
-                <div class="text-center font-bebas">
-                    <p class="text-2xl">
-                        Sorry, not enough songs to produce a Mosaic! Try to
-                        change the time period, or come back after a few days of
-                        using Spotify!
-                    </p>
-                    <br />
-                    <p class="text-lg">
-                        As a token of apology, here's a photo of Eevee wearing
-                        Pom Pom hairbands. I hope you like it
-                    </p>
-
-                    <img
-                        class="w-96"
-                        alt="The Eevee character from the Pokemon Franchise wearing a hairband that features the character Pom Pom from the Franchise Honkai Star Rail"
-                        src="./eevee_pompom.jpg"
-                    />
-                </div>
-            {:else}
+            {#if number_of_songs >= 17}
                 <div class="w-80 bg-purple-100 font-sans" id="mosaic">
                     <div
                         class="h-6 bg-purple-200 flex justify-center items-center px-2"
@@ -197,6 +173,8 @@
                         </div>
                     {/each}
                 </div>
+            {:else}
+                <PompomError />
             {/if}
         </div>
     </div>
