@@ -10,10 +10,10 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
   />
 </svelte:head>
-<div class="flex flex-col h-screen justify-between">
+<div class="flex flex-col h-screen justify-between bg-purple-50">
   <header class="h-auto">
     <nav
-      class="flex items-center justify-between flex-wrap bg-slate-200 p-2 font-bebas text-2xl md:flex md:justify-evenly"
+      class="flex items-center justify-between flex-wrap bg-purple-200 p-2 font-bebas text-2xl md:flex md:justify-evenly"
     >
       <div class="flex items-center">
         <p>🎶 Musical Mosaic</p>
@@ -70,10 +70,11 @@
       </div>
     </nav>
   </header>
+
   <slot class="container mx-auto mb-auto" />
 
   <footer
-    class="flex flex-col sticky justify-center font-bebas bg-slate-200 mt-4"
+    class="flex flex-col sticky justify-center font-bebas bg-purple-200 mt-4"
   >
     <p class="text-center">
       Made with love by <a href="https://github.com/Jyodann/" class="underline"

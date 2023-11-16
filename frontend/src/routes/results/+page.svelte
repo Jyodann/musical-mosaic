@@ -5,13 +5,19 @@
     import { get_link } from "$lib";
     import PompomError from "./pompom_error.svelte";
     import CurrentTermButton from "./current_term_button.svelte";
-
+    import Mosaic from "./mosaic.svelte";
+    import ThemedMosaic from "./themed_mosaic.svelte";
     let songs = [];
     let orignal_song_list = [];
     let username = "";
     let access_token;
     let number_of_songs = 0;
     let CURRENT_TERM = "";
+    let themed_mosaic_check = true;
+
+    let red_value = 0;
+    let green_value = 0;
+    let blue_value = 0;
 
     const SHORT_TERM = "short_term";
     const MEDIUM_TERM = "medium_term";
@@ -68,10 +74,6 @@
         CURRENT_TERM = MEDIUM_TERM;
         change_term(CURRENT_TERM, access_token, orignal_song_list);
     });
-
-    function return_url(song_json) {
-        return song_json.album.images[0].url;
-    }
 </script>
 
 <svelte:head>
@@ -87,77 +89,50 @@
                     component_term={SHORT_TERM}
                     current_term={CURRENT_TERM}
                     title="4 Weeks"
-                    on:click={() => change_term(
-                        SHORT_TERM,
-                        access_token,
-                        orignal_song_list
-                    )}
+                    on:click={() =>
+                        change_term(
+                            SHORT_TERM,
+                            access_token,
+                            orignal_song_list
+                        )}
                 />
                 <CurrentTermButton
                     component_term={MEDIUM_TERM}
                     current_term={CURRENT_TERM}
                     title="6 Months"
-                    on:click={() => change_term(
-                        MEDIUM_TERM,
-                        access_token,
-                        orignal_song_list
-                    )}
+                    on:click={() =>
+                        change_term(
+                            MEDIUM_TERM,
+                            access_token,
+                            orignal_song_list
+                        )}
                 />
                 <CurrentTermButton
                     component_term={ALL_TIME}
                     current_term={CURRENT_TERM}
                     title="All Time"
-                    on:click={() => change_term(
-                        ALL_TIME,
-                        access_token,
-                        orignal_song_list
-                    )}
+                    on:click={() =>
+                        change_term(ALL_TIME, access_token, orignal_song_list)}
                 />
-                
+            </div>
 
-
+            <div class="w-80 flex justify-evenly font-bebas">
+                <p>Use Themed Mosaic:</p>
+                <input bind:checked={themed_mosaic_check} type="checkbox" />
             </div>
 
             {#if number_of_songs >= 17}
-                <div class="w-80 bg-purple-100 font-sans" id="mosaic">
-                    <div
-                        class="h-6 bg-purple-200 flex justify-center items-center px-2"
-                    >
-                        <p class="text-lg font-bebas tracking-normal">
-                            {username}'s Musical Mosaic
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-5">
-                        {#each songs as song, idx}
-                            {#if idx === 6}
-                                <img
-                                    class="row-span-3 col-span-3 object-fill"
-                                    src={return_url(song)}
-                                    alt="Album Art for {song.name}"
-                                />
-                            {:else}
-                                <img
-                                    src={return_url(song)}
-                                    alt="Album Art for {song.name}"
-                                />
-                            {/if}
-                        {/each}
-                    </div>
-
-                    <div
-                        class="h-6 bg-purple-400 flex justify-between items-center px-2"
-                    >
-                        <img
-                            class="h-full py-1"
-                            src="Spotify_Logo_RGB_Black.png"
-                            alt="Spotify Logo"
-                        />
-                        <p class="font-bebas tracking-wider text-sm">
-                            {window.location.host}
-                        </p>
-                    </div>
-                </div>
+                {#if themed_mosaic_check}
+                    <ThemedMosaic
+                        {songs}
+                        {red_value}
+                        {blue_value}
+                        {green_value}
+                        {username}
+                    />
+                {:else}
+                    <Mosaic {songs} {username} />
+                {/if}
 
                 <p class="font-bebas text-center text-2xl">Featured Tracks</p>
                 <div class="w-80 font-bebas h-40 overflow-auto">
