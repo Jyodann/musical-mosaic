@@ -8,7 +8,8 @@
     <div class="md:w-[40rem] text-justify flex flex-col gap-4">
         <p>Musical Mosaic was created by me, Jordan, I usually go by the alias <a class="underline" href="https://github.com/Jyodann/">Jyodann</a> online.</p>
 
-        <p>You may contact me through <a class="font-bold" href="mailto:jordynwinnie@gmail.com">Email</a> if you require any help, or would like to send feedback.</p>
+        <p>You may contact me through <a class="underline" href="mailto:jordynwinnie@gmail.com">Email</a> if you require any help, or would like to send feedback.</p>
+
     </div>  
 
     <p class="font-bold text-xl">Support me!</p>
