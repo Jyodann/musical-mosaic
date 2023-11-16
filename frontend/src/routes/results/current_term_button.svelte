@@ -6,7 +6,7 @@
 
 <button
     class="px-4 w-24 text-center {current_term === component_term
-        ? 'bg-blue-300'
+        ? 'bg-purple-300'
         : ''} w-24 text-center"
     on:click>{title}</button
 >
