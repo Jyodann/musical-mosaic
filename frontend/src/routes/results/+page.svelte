@@ -118,7 +118,7 @@
 
             <div class="w-80 flex justify-evenly font-bebas">
                 <p>Use Themed Mosaic:</p>
-                <input bind:checked={themed_mosaic_check} type="checkbox" />
+                <input class="accent-purple-300" bind:checked={themed_mosaic_check} type="checkbox" />
             </div>
 
             {#if number_of_songs >= 17}
